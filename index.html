@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Nicol&aacute;s Espinosa Restrepo</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <section id="intro" class="screen active">
+    <div class="intro-center">
+      <p class="intro-kicker">Mapa de pensamiento</p>
+      <h1 id="intro-name"></h1>
+      <p id="intro-question" class="intro-question hidden">Conect&aacute; palabras como estrellas.</p>
+      <button id="btn-entrar" class="btn-primary hidden">Entrar</button>
+    </div>
+  </section>
+
+  <section id="main" class="screen">
+    <div class="constellation-shell">
+      <header class="topbar">
+        <div>
+          <p class="eyebrow">Nicol&aacute;s Espinosa Restrepo</p>
+          <h2>Arm&aacute; tu constelaci&oacute;n</h2>
+        </div>
+        <div class="target-panel">
+          <span id="counter">0 / 5</span>
+          <button id="btn-reiniciar" class="icon-button" type="button" aria-label="Reiniciar selecci&oacute;n" title="Reiniciar">
+            &#8634;
+          </button>
+        </div>
+      </header>
+
+      <div class="controls" aria-label="Cantidad de puntos">
+        <span>Puntos</span>
+        <div id="point-options" class="segmented"></div>
+      </div>
+
+      <div id="sky" class="sky" aria-label="Mapa de palabras">
+        <svg id="constellation-lines" aria-hidden="true"></svg>
+        <div id="stars-layer"></div>
+      </div>
+
+      <footer class="actionbar">
+        <p id="hint">Eleg&iacute; cu&aacute;ntas palabras quer&eacute;s conectar y toc&aacute; las estrellas.</p>
+        <button id="btn-analizar" class="btn-primary hidden" type="button">Analizar constelaci&oacute;n</button>
+      </footer>
+    </div>
+  </section>
+
+  <section id="resultado" class="screen">
+    <div class="result-shell">
+      <p class="eyebrow">Lectura de constelaci&oacute;n</p>
+      <h2 id="result-title">Resultado</h2>
+      <div id="word-meanings" class="meaning-grid"></div>
+      <div class="combined-reading">
+        <h3>Lectura conjunta</h3>
+        <p id="combined-text"></p>
+      </div>
+      <button id="btn-terminar-lectura" class="btn-primary" type="button">Terminar</button>
+    </div>
+  </section>
+
+  <section id="contrato" class="screen">
+    <div class="contract-stage">
+      <article id="contract-paper" class="contract-paper">
+        <p class="eyebrow">Decisi&oacute;n silenciosa</p>
+        <h2 id="contract-title">Contrato</h2>
+        <p id="contract-body"></p>
+        <div id="contract-metrics" class="contract-metrics"></div>
+        <div class="contract-signature">
+          <span>Nicol&aacute;s Espinosa Restrepo</span>
+        </div>
+      </article>
+      <button id="btn-volver-inicio" class="btn-primary" type="button">Volver al inicio</button>
+    </div>
+  </section>
+
+  <script src="app.js"></script>
+</body>
+</html>

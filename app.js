@@ -26,6 +26,31 @@ const palabras = [
   { texto: 'Drama', tipo: 'sombra', nico: 'Para Nico, drama es energía mal administrada.' },
   { texto: 'Hipocresía', tipo: 'sombra', nico: 'Para Nico, hipocresía es incoherencia con buena escenografía.' },
   { texto: 'Sencillez', tipo: 'sombra', nico: 'Para Nico, sencillez puede ser virtud o renuncia: depende de si nace de paz o de miedo.' },
+  { texto: 'Reservado', tipo: 'identidad', nico: 'Para Nico, ser reservado es administrar presencia: no todo valor necesita estar expuesto.' },
+  { texto: 'Ventaja', tipo: 'vision', nico: 'Para Nico, ventaja es leer antes que otros y moverse cuando el tablero todavía parece quieto.' },
+  { texto: 'Capitalista', tipo: 'vision', nico: 'Para Nico, capitalista es quien entiende recursos, propiedad y oportunidad como una arquitectura de poder.' },
+  { texto: 'Convicción', tipo: 'identidad', nico: 'Para Nico, convicción es sostener una decisión cuando el entorno todavía no la entiende.' },
+  { texto: 'Patrimonio', tipo: 'vision', nico: 'Para Nico, patrimonio es memoria material: decisiones que aprendieron a quedarse.' },
+  { texto: 'Negociación', tipo: 'accion', nico: 'Para Nico, negociación es elegancia bajo presión: ganar sin romper la mesa.' },
+  { texto: 'Rentabilidad', tipo: 'vision', nico: 'Para Nico, rentabilidad es la prueba fría de que una idea no solo emociona, también responde.' },
+  { texto: 'Expansión', tipo: 'accion', nico: 'Para Nico, expansión es crecimiento con cálculo: ocupar más espacio sin perder estructura.' },
+  { texto: 'Autoridad', tipo: 'identidad', nico: 'Para Nico, autoridad es presencia que ordena sin tener que levantar la voz.' },
+  { texto: 'Enfoque', tipo: 'accion', nico: 'Para Nico, enfoque es proteger la energía de todo lo que no construye.' },
+  { texto: 'Prestigio', tipo: 'identidad', nico: 'Para Nico, prestigio es reputación acumulada: una forma silenciosa de crédito.' },
+  { texto: 'Oportunidad', tipo: 'vision', nico: 'Para Nico, oportunidad es una puerta que solo se abre para quien ya estaba mirando.' },
+  { texto: 'Alianza', tipo: 'accion', nico: 'Para Nico, alianza es multiplicar alcance sin entregar el criterio.' },
+  { texto: 'Influencia', tipo: 'identidad', nico: 'Para Nico, influencia es mover decisiones incluso cuando no se firma el documento.' },
+  { texto: 'Estatus', tipo: 'identidad', nico: 'Para Nico, estatus es señal externa; importa solo si está sostenida por método.' },
+  { texto: 'Determinación', tipo: 'accion', nico: 'Para Nico, determinación es seguir cuando la emoción inicial ya se fue.' },
+  { texto: 'Método', tipo: 'vision', nico: 'Para Nico, método es volver repetible lo que otros dejan al azar.' },
+  { texto: 'Autonomía', tipo: 'identidad', nico: 'Para Nico, autonomía es libertad con responsabilidad: decidir sin pedir permiso emocional.' },
+  { texto: 'Excelencia', tipo: 'accion', nico: 'Para Nico, excelencia es una exigencia privada antes de ser una vitrina pública.' },
+  { texto: 'Competencia', tipo: 'accion', nico: 'Para Nico, competencia es presión útil: obliga a afinar la jugada.' },
+  { texto: 'Táctica', tipo: 'vision', nico: 'Para Nico, táctica es resolver el movimiento inmediato sin traicionar la estrategia.' },
+  { texto: 'Valor', tipo: 'vision', nico: 'Para Nico, valor es lo que queda cuando se separa el ruido de la utilidad real.' },
+  { texto: 'Gestión', tipo: 'accion', nico: 'Para Nico, gestión es hacer que las cosas pasen sin depender del caos.' },
+  { texto: 'Marca', tipo: 'identidad', nico: 'Para Nico, marca es la forma en que una persona sigue hablando cuando ya salió de la sala.' },
+  { texto: 'Propiedad', tipo: 'vision', nico: 'Para Nico, propiedad es control sobre el futuro: no solo tener, sino decidir.' },
 ];
 
 const lecturasPorTipo = {
@@ -48,15 +73,6 @@ const sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
 
 function byId(id) {
   return document.getElementById(id);
-}
-
-function shuffle(lista) {
-  const copia = [...lista];
-  for (let i = copia.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [copia[i], copia[j]] = [copia[j], copia[i]];
-  }
-  return copia;
 }
 
 async function typewriter(el, text, speed = 58) {
@@ -135,15 +151,16 @@ function colocarPalabras() {
   layer.innerHTML = '';
   byId('constellation-lines').innerHTML = '';
 
-  const ordenadas = shuffle(palabras);
-  const columnas = window.innerWidth < 760 ? 3 : 5;
+  const ordenadas = palabras;
+  const ancho = window.innerWidth;
+  const columnas = ancho < 520 ? 4 : ancho < 760 ? 5 : ancho < 1080 ? 7 : 10;
   const filas = Math.ceil(ordenadas.length / columnas);
 
   ordenadas.forEach((palabra, index) => {
     const col = index % columnas;
     const row = Math.floor(index / columnas);
-    const jitterX = (Math.random() - 0.5) * 8;
-    const jitterY = (Math.random() - 0.5) * 8;
+    const jitterX = (Math.random() - 0.5) * 3.5;
+    const jitterY = (Math.random() - 0.5) * 3.5;
     const x = ((col + 0.5) / columnas) * 100 + jitterX;
     const y = ((row + 0.5) / filas) * 100 + jitterY;
 
@@ -153,8 +170,8 @@ function colocarPalabras() {
     btn.textContent = palabra.texto;
     btn.dataset.texto = palabra.texto;
     btn.dataset.tipo = palabra.tipo;
-    btn.style.left = `${Math.min(92, Math.max(8, x))}%`;
-    btn.style.top = `${Math.min(92, Math.max(8, y))}%`;
+    btn.style.left = `${Math.min(94, Math.max(6, x))}%`;
+    btn.style.top = `${Math.min(94, Math.max(6, y))}%`;
     btn.addEventListener('mouseenter', () => registrarExploracion(palabra.texto));
     btn.addEventListener('focus', () => registrarExploracion(palabra.texto));
     btn.addEventListener('click', () => alternarPalabra(palabra.texto));
